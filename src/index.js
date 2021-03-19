@@ -1,46 +1,139 @@
-const { app, BrowserWindow } = require('electron');
+const electron = require('electron');
+const url = require('url');
 const path = require('path');
+const { Menu } = require('electron');
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
-  app.quit();
+const {app, BrowserWindow, ipcMain} = electron;
+
+//Set ENV
+
+process.env.NODE_ENV = "production";
+
+let mainWindow;
+let addWindow;
+
+//Listen for app to be ready
+app.on('ready',function(){
+    //create new window
+    mainWindow = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
+    //Load html into window
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname,'mainWindow.html'),
+        protocol:'file',
+        slashes: true
+    }));
+    // Quit app when closed
+    mainWindow.on('closed', function(){
+        app.quit();
+    })
+    // mainWindow.webContents.openDevTools();
+    //Build Menu from templete
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    // Insert menu
+    Menu.setApplicationMenu(mainMenu);
+});
+
+// Handle create add window
+function createAddWidow(){
+    //create new window
+    addWindow = new BrowserWindow({
+        width: 300,
+        height: 200,
+        title:'Add Shopping List Item',
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
+    //Load html into window
+    addWindow.loadURL(url.format({
+        pathname: path.join(__dirname,'addWindow.html'),
+        protocol:'file',
+        slashes: true
+    }));
+    //Garbage collection handle
+    addWindow.on('close',function(){
+        addWindow = null;
+    });
+}
+//Catch item:add
+ipcMain.on('item:add',function(e, item){
+mainWindow.webContents.send('item:add',item);
+// addWindow.close();
+});
+
+//create Menu template
+const mainMenuTemplate =[
+    {
+        label:'File',
+        submenu:[
+            {
+                label: 'Add Item',
+                click(){
+                    createAddWidow();
+                }
+            },
+            
+            {
+                label: 'Clear Item',
+                click(){
+                    mainWindow.webContents.send('item:clear');
+                }
+            },
+            {
+                label: 'Quit',
+                accelerator: process.platform =='darwin' ?'Command+Q' : 'Ctrl+Q',
+                click(){
+                    app.quit();
+                }
+            },
+            {
+                label: 'King',
+                submenu:[
+                    {
+                        label: 'Hello',
+                    },
+                    {
+                        label: 'Welcome',
+                    },
+                    ]
+                }
+            ]
+        },
+        {
+            label:'View'
+        },
+        {
+            label:'Window'
+        },
+        {
+            label:'Help'
+        }
+    ];
+
+// if mac , add emty object to menu
+if(process.platform == 'darwin'){
+    mainMenuTemplate.unshift({});
 }
 
-const createWindow = () => {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-  });
-
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-};
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+//Add Developer tools item not in prod
+if(process.env.NODE_ENV !== 'production'){
+    mainMenuTemplate.push({
+        label: 'Developer Tools',
+        submenu:[
+            {
+                label: 'Toggle DevTools',
+                accelerator: process.platform =='darwin' ?'Command+I' : 'Ctrl+I',
+                click(item, focusedWindow){
+                    focusedWindow.toggleDevTools();
+                }
+            },
+            {
+                role: 'reload'
+            }
+        ]
+    });
+}
