@@ -11,6 +11,7 @@ process.env.NODE_ENV = "production";
 
 let mainWindow;
 let addWindow;
+let Show1;
 
 //Listen for app to be ready
 app.on('ready',function(){
@@ -41,8 +42,8 @@ app.on('ready',function(){
 function createAddWidow(){
     //create new window
     addWindow = new BrowserWindow({
-        width: 300,
-        height: 200,
+        width: 600,
+        height: 300,
         title:'Add Shopping List Item',
         webPreferences: {
             nodeIntegration: true
@@ -57,6 +58,29 @@ function createAddWidow(){
     //Garbage collection handle
     addWindow.on('close',function(){
         addWindow = null;
+    });
+}
+//-------------------------------
+// Handle create add window
+function createShow(){
+    //create new window
+    Show1 = new BrowserWindow({
+        width: 600,
+        height: 300,
+        title:'Add Shopping List Item',
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
+    //Load html into window
+    Show1.loadURL(url.format({
+        pathname: path.join(__dirname,'show1.html'),
+        protocol:'file',
+        slashes: true
+    }));
+    //Garbage collection handle
+    Show1.on('close',function(){
+        Show1 = null;
     });
 }
 //Catch item:add
@@ -76,7 +100,7 @@ const mainMenuTemplate =[
                     createAddWidow();
                 }
             },
-            
+
             {
                 label: 'Clear Item',
                 click(){
@@ -104,7 +128,18 @@ const mainMenuTemplate =[
             ]
         },
         {
-            label:'View'
+            label:'View',
+            submenu:[
+              {
+                label:'Show1',
+                click(){
+                    createShow();
+                }
+              },
+              {
+                label:'Show2'
+              }
+            ]
         },
         {
             label:'Window'

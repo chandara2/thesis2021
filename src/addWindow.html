@@ -9,13 +9,17 @@
     <div class="container">
         <form>
             <div>
-                <label>Enter Item</label>
+                <label>Item</label>
                 <input type="text" id="item" autofocus>
+                <label>Describtion KH</label>
+                <input type="text" id="kh-des">
+                <label>Describtion EN</label>
+                <input type="text" id="en-des">
             </div>
             <button type="submit" class="brn waves-dffect waves-light">Add Item</button>
         </form>
     </div>
-    
+
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
@@ -30,6 +34,6 @@
             ipcRenderer.send('item:add',item);
         }
     </script>
-    
+
 </body>
 </html>
