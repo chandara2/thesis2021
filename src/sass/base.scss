@@ -1,0 +1,18 @@
+
+body {
+    margin: 0;
+}
+$base_color: #ED2024;
+$color1: #fff;
+$color2: #222d32;
+.app {
+    display: flex;
+    .content-right {
+        background-color: lightgray;
+        position: fixed;
+        left: 200px;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+}
