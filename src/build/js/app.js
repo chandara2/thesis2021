@@ -9,19 +9,19 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _module_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/main */ "./src/js/module/main.js");
-/* harmony import */ var _module_sidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/sidebar */ "./src/js/module/sidebar.js");
+/* harmony import */ var _modules_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/main */ "./src/js/modules/main.js");
+/* harmony import */ var _modules_sidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/sidebar */ "./src/js/modules/sidebar.js");
 
 
-new _module_main__WEBPACK_IMPORTED_MODULE_0__.default();
-new _module_sidebar__WEBPACK_IMPORTED_MODULE_1__.default();
+new _modules_main__WEBPACK_IMPORTED_MODULE_0__.default();
+new _modules_sidebar__WEBPACK_IMPORTED_MODULE_1__.default();
 
 /***/ }),
 
-/***/ "./src/js/module/main.js":
-/*!*******************************!*\
-  !*** ./src/js/module/main.js ***!
-  \*******************************/
+/***/ "./src/js/modules/main.js":
+/*!********************************!*\
+  !*** ./src/js/modules/main.js ***!
+  \********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -29,11 +29,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
 
 var Main = /*#__PURE__*/function () {
   function Main() {
@@ -54,10 +58,10 @@ var Main = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "./src/js/module/sidebar.js":
-/*!**********************************!*\
-  !*** ./src/js/module/sidebar.js ***!
-  \**********************************/
+/***/ "./src/js/modules/sidebar.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/sidebar.js ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -90,7 +94,33 @@ var Sidebar = /*#__PURE__*/function () {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()("#main-menu").on('click', function () {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()("#sub-menu").toggle();
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).toggleClass('active');
+        }); // Sidebar tap
+
+        var previousActiveTabIndex = 0;
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tab-switcher").on('click keypress', function (event) {
+          // event.which === 13 means the "Enter" key is pressed
+          if (event.type === "keypress" && event.which === 13 || event.type === "click") {
+            var tabClicked = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data("tab-index");
+
+            if (tabClicked != previousActiveTabIndex) {
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()("#allTabsContainer .tab-container").each(function () {
+                if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data("tab-index") == tabClicked) {
+                  jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tab-container").hide();
+                  jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).show();
+                  previousActiveTabIndex = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data("tab-index");
+                  return;
+                }
+              });
+            }
+          }
         });
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tab-switcher").on('click', function () {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tab-switcher").removeClass("active");
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass("active");
+        }); // add content to each tap
+
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()("#dashboard").load("template/dashboard.html");
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()("#add-user").load("template/add-user.html");
       });
     }
   }]);

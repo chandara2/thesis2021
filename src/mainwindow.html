@@ -13,15 +13,15 @@
         PLB
     </div>
     <div class="menu-list">
-        <ul>
-            <li><a href="#"><img src="icon/home-white.svg">Dashboard</a></li>
+        <ul class="main-tap">
+            <li class="tab-switcher" data-tab-index="1" tabindex="1"><a href="#"><img src="icon/home-white.svg">Dashboard</a></li>
             <li><a href="#" id="main-menu"><img src="icon/user.svg">User</a>
                 <ul class="sub-menu" id="sub-menu">
-                    <li><a href="template/add-user.html">Add user</a></li>
-                    <li><a href="#">Manage users</a></li>
+                    <li class="tab-switcher active" data-tab-index="2" tabindex="2"><a href="#" >Add user</a></li>
+                    <li class="tab-switcher" data-tab-index="3" tabindex="3"><a href="#">Manage users</a></li>
                 </ul>
             </li>
-            <li><a href="#"><img src="icon/cube-of-notes-stack.svg">Group</a></li>
+            <li class="tab-switcher" data-tab-index="4" tabindex="4"><a href="#"><img src="icon/cube-of-notes-stack.svg">Group</a></li>
             <li><a href="#"><img src="icon/brand-positioning.svg">Brands</a></li>
             <li><a href="#"><img src="icon/categories.svg">Category</a></li>
             <li><a href="#"><img src="icon/store.svg">Store</a></li>
@@ -45,44 +45,28 @@
         <div class="guide">
             <img src="icon/information-button-white.svg" alt="">
         </div>
-        <div class="header-right">
+        <!-- <div class="header-right">
             <div class="user-profile">
                 <img src="icon/user.svg" alt="">
             </div>
+        </div> -->
+    </div>
+
+    <div id="allTabsContainer" class="tap-content">
+        <div class="tab-container" data-tab-index="1" style="display: none;">
+            <div id="dashboard"></div>
+        </div>
+        <div class="tab-container" data-tab-index="2"​ >
+            <div id="add-user"></div>
+        </div>
+        <div class="tab-container" data-tab-index="3" style="display: none;">
+            <h1>Manage User</h1>
         </div>
     </div>
-    <div class="dashboard">
-        <div class="title">
-            <h1>Dashboard</h1>
-        </div>
-        <div class="content-view">
-            <div class="summary-info">
-                <div class="sumary total-produce-card">
-                    <span>3</span>
-                    <h1>Total products</h1>
-                    <span>More info</span>
-                </div>
-                <div class="sumary total-paid-card">
-                    <span>3</span>
-                    <h1>Total paid order</h1>
-                    <span>More info</span>
-                </div>
-                <div class="sumary total-user-card">
-                    <span>3</span>
-                    <h1>Total Users</h1>
-                    <span>More info</span>
-                </div>
-                <div class="sumary total-store-card">
-                    <span>3</span>
-                    <h1>Total store</h1>
-                    <span>More info</span>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    
 </div>
 <script src="build/js/app.js"></script>
 </body>
 </html>
 
-    
