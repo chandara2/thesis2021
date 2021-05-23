@@ -1,13 +1,23 @@
-import $ from 'jquery';
+import $ from 'jquery'
 class Sidebar {
     constructor(){
         this.sidebar();
     }
     sidebar(){
         $(document).ready(function(){
-              $("#sub-menu").hide()
-              $("#main-menu").on('click',function(){
-                $("#sub-menu").toggle()
+              $("#sub-menu-user").hide()
+              $("#main-menu-user").on('click',function(){
+                $("#sub-menu-user").toggle()
+                $(this).toggleClass('active')
+              })
+              $("#sub-menu-group").hide()
+              $("#main-menu-group").on('click',function(){
+                $("#sub-menu-group").toggle()
+                $(this).toggleClass('active')
+              })
+              $("#sub-menu-product").hide()
+              $("#main-menu-product").on('click',function(){
+                $("#sub-menu-product").toggle()
                 $(this).toggleClass('active')
               })
 
@@ -34,7 +44,10 @@ class Sidebar {
                 $(".tab-switcher").removeClass("active");
                 $(this).addClass("active");   
             });
+
             // add content to each tap
+            $("#header").load("template/header.html")
+            $("#account").load("template/account.html")
             $("#dashboard").load("template/dashboard.html")
             $("#add-user" ).load("template/add-user.html" );
         });
