@@ -1,0 +1,19 @@
+.dashboard {
+    .title {
+        
+    }
+    .content-view {
+        .summary-info {
+            display: flex;
+            .sumary {
+                height: 200px;
+                background-color: $base_color;
+                margin: 5px;
+                flex-grow: 1;
+            }
+            .total-produce-card {
+                
+            }
+        }
+    }
+}

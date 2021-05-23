@@ -1,0 +1,55 @@
+.sidebar-menu {
+    width: 200px;
+    height: 100vh;
+    background-color: $color2;
+    position: fixed;
+    .company-name {
+        width: 100%;
+        height: 48px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        background-color: $color1;
+        color: $base_color;
+    }
+    .menu-list {
+        margin-top: 10px;
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            li {
+                margin-top: 10px;
+                a {
+                    text-decoration: none;
+                    font-size: 16px;
+                    color: $color1;
+                    padding: 0 15px;
+                    img {
+                        width: 18px;
+                        height: 18px;
+                        margin-right: 10px;
+                    }
+                }
+                .active {
+                    color: gray;
+                }
+                .sub-menu {
+                    padding: 1px 0 10px 30px;
+                    background-color: #3f3f3f;
+                    margin-top: 10px;
+                    li {
+                        a {
+                            text-decoration: none;
+                            font-size: 16px;
+                            color: $color1;
+                            padding: 0 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

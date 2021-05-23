@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>PLB App</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="build/css/app.css">
+  </head>
+  <body>
+<div class="app"> <!-- app container --> 
+<div class="sidebar-menu">
+    <div class="company-name">
+        PLB
+    </div>
+    <div class="menu-list">
+        <ul class="main-tap">
+            <li class="tab-switcher" data-tab-index="1" tabindex="1"><a href="#"><img src="icon/home-white.svg">Dashboard</a></li>
+            <li><a href="#" id="main-menu-user"><img src="icon/user.svg">User</a>
+                <ul class="sub-menu" id="sub-menu-user">
+                    <li class="tab-switcher active" data-tab-index="2" tabindex="2"><a href="#" >Add user</a></li>
+                    <li class="tab-switcher" data-tab-index="3" tabindex="3"><a href="#">Manage users</a></li>
+                </ul>
+            </li>
+            <li ><a href="#" id="main-menu-group"><img src="icon/cube-of-notes-stack.svg">Group</a>
+                <ul class="sub-menu" id="sub-menu-group">
+                    <li class="tab-switcher active" data-tab-index="4" tabindex="4"><a href="#" >Add Group</a></li>
+                    <li class="tab-switcher" data-tab-index="5" tabindex="5"><a href="#">Manage Group</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><img src="icon/brand-positioning.svg">Brands</a></li>
+            <li><a href="#"><img src="icon/categories.svg">Category</a></li>
+            <li><a href="#"><img src="icon/store.svg">Store</a></li>
+            <li><a href="#"><img src="icon/attribution.svg">Attributes</a></li>
+            <li id="main-menu-product"><a href="#"><img src="icon/products.svg">Product</a>
+                <ul class="sub-menu" id="sub-menu-product">
+                    <li class="tab-switcher" data-tab-index="6" tabindex="6"><a href="#" >Add New Product</a></li>
+                    <li class="tab-switcher" data-tab-index="7" tabindex="7"><a href="#">View Product</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><img src="icon/choices.svg">Order</a></li>
+            <li class="tab-switcher" data-tab-index="8" tabindex="8"><a href="#"><img src="icon/choices.svg">Account</a></li>
+            <li><a href="#"><img src="icon/report.svg">Report</a></li>
+            <li><a href="#"><img src="icon/business-and-trade.svg">Company</a></li>
+            <li><a href="#"><img src="icon/profile.svg">Profile</a></li>
+            <li><a href="#"><img src="icon/setting.svg">Setting</a></li>
+            <li><a href="#"><img src="icon/logout.svg">Logout</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content-right">
+    <div class="header">
+        <div class="menu-bar">
+            <img src="icon/menu-white.svg" alt="">
+        </div>
+        <div class="guide">
+            <img src="icon/information-button-white.svg" alt="">
+        </div>
+        <!-- <div class="header-right">
+            <div class="user-profile">
+                <img src="icon/user.svg" alt="">
+            </div>
+        </div> -->
+    </div>
+
+    <div id="allTabsContainer" class="tap-content">
+        <div class="tab-container" data-tab-index="1" style="display: none;">
+            <div id="dashboard"></div>
+        </div>
+        <div class="tab-container" data-tab-index="2"​ >
+            <div id="add-user"></div>
+            <input type="button" id="test" value="test connection">
+        </div>
+        <div class="tab-container" data-tab-index="3" style="display: none;">
+            <h1>Manage User</h1>
+        </div>
+        <div class="tab-container" data-tab-index="4" style="display: none;">
+            <h1>Add group</h1>
+        </div>
+        <div class="tab-container" data-tab-index="5" style="display: none;">
+            <h1>Manage User</h1>    
+        </div>
+        <div class="tab-container" data-tab-index="6" style="display: none;">
+            <h1>Add New Product</h1>
+        </div>
+        <div class="tab-container" data-tab-index="7" style="display: none;">
+            <h1>View Product</h1>    
+        </div>
+        <div class="tab-container" data-tab-index="8" style="display: none;">
+            <h1>Account</h1>   
+            <div id="account"></div> 
+        </div>
+    </div>
+
+    
+</div>
+<script>
+    document.getElementById('test').addEventListener('click', ()=> {
+  var mysql = require('mysql')
+  var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'plb_db'
+  })
+  connection.connect((err) =>{
+      if(err){
+          return console.log(err.stack)
+      }
+      console.log('connection is successfully established!')
+  })
+  connection.end(()=>{
+      console.log('connection success close')
+  })
+})
+</script>
+<script src="build/js/app.js"></script>
+</body>
+</html>
+
